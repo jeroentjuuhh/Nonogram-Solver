@@ -17,9 +17,22 @@ public class Numbers {
         this.numbers = nums;
     }
 
-    public Numbers(int[] nums){
-        for(int i = 0; i < nums.length;i++){
-            numbers.add(i, nums[i]);
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+
+        for(int i = 0; i < numbers.size(); i++){
+            result.append(numbers.get(i)).append(", ");
+        }
+        result.deleteCharAt(result.length()-2);
+
+        return result.toString();
+    }
+
+    Numbers(int[] nums){
+        numbers = new ArrayList<Integer>();
+        for (int num : nums) {
+            numbers.add(num);
         }
     }
 
