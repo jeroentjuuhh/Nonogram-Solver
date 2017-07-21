@@ -25,11 +25,39 @@ public class Grid {
         }
     }
 
-    public void setCell(int row, int column, String status){
+    public int sizeRows(){
+        return cells.size();
+    }
+
+    public int sizeColumns(){
+        return cells.get(0).size();
+    }
+
+    public void setCell(int row, int column, int status){
         cells.get(row).get(column).setStatus(status);
     }
 
-    public Cell getCell(int row, int col){
+    public int getCellsUnsolvedColumn(int index){
+        int result = 0;
+
+        for(Cell cell: getColumn(index)){
+            if(cell.getStatus() == 0) result++;
+        }
+
+        return result;
+    }
+
+    public int getCellsUnsolvedRow(int index){
+        int result = 0;
+
+        for(Cell cell: getRow(index)){
+            if(cell.getStatus() == 0) result++;
+        }
+
+        return result;
+    }
+
+        public Cell getCell(int row, int col){
         return cells.get(row).get(col);
     }
 
