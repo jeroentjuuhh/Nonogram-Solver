@@ -12,6 +12,14 @@ public class Nonogram {
     //Grid
     private Grid grid;
 
+    /**
+     * a Nonogram containing all the numbers.
+     * Makes a grid and number objects
+     * @param columnOptions the numbers of the columns
+     * @param rowOptions the numbers of the rows
+     * @param sizeRows amount of rows
+     * @param sizeColumns amount of columns
+     */
     public Nonogram(int[][] columnOptions, int[][] rowOptions, int sizeRows, int sizeColumns){
         columns = new ArrayList<Numbers>(columnOptions.length);
         rows = new ArrayList<Numbers>(rowOptions.length);
