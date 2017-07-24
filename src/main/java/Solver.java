@@ -5,10 +5,10 @@ public class Solver {
     public static void solve(Nonogram nonogramIn){
         nonogram = nonogramIn;
 
-        //System.out.println(nonogram.toString());
+        System.out.println(nonogram.toString());
 
-        getGrid().setCell(1, 1,1);
-        getGrid().setCell(1, 2,1);
+        //getGrid().setCell(1, 1,1);
+        //getGrid().setCell(1, 2,1);
 
         //while unsolved
         //columns

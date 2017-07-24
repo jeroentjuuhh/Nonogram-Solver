@@ -9,11 +9,7 @@ public class Numbers {
 
     private List<Integer> numbers;
 
-    /**
-     *
-     * @param nums
-     */
-    public Numbers(List<Integer> nums){
+    Numbers(List<Integer> nums){
         this.numbers = nums;
     }
 
@@ -21,23 +17,23 @@ public class Numbers {
     public String toString() {
         StringBuilder result = new StringBuilder();
 
-        for(int i = 0; i < numbers.size(); i++){
-            result.append(numbers.get(i)).append(", ");
+        for (Integer number : numbers) {
+            result.append(number).append(", ");
         }
         result.deleteCharAt(result.length()-2);
 
         return result.toString();
     }
 
-    public int getAtIndex(int index){
+    int getAtIndex(int index){
         return numbers.get(index);
     }
 
-    public int getSize(){
+    int getSize(){
         return numbers.size();
     }
 
-    public int getMagicNumber(){
+    int getMagicNumber(){
         int sum = 0;
         int amount = 0;
         for(int i = 0; i < numbers.size(); i++){
@@ -45,6 +41,21 @@ public class Numbers {
             amount++;
         }
         return sum + amount-1;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Numbers numbers1 = (Numbers) o;
+
+        return numbers != null ? numbers.equals(numbers1.numbers) : numbers1.numbers == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return numbers != null ? numbers.hashCode() : 0;
     }
 
     Numbers(int[] nums){

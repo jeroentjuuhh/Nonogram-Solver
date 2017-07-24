@@ -29,6 +29,21 @@ public class Grid {
         return cells.size();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Grid grid = (Grid) o;
+
+        return cells != null ? cells.equals(grid.cells) : grid.cells == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return cells != null ? cells.hashCode() : 0;
+    }
+
     public int sizeColumns(){
         return cells.get(0).size();
     }
