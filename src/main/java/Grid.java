@@ -25,6 +25,73 @@ public class Grid {
         }
     }
 
+    public void fillColumn(int index, Numbers numbers){
+        if(getCellsUnsolvedColumn(index) == 0) return;
+        List<Cell> column = getColumn(index);
+        int numbersIndex = 0;
+        int cellIndex = 0;
+
+        while(cellIndex < column.size() - 1) {
+
+            while (column.get(cellIndex).getStatus() != 0 && cellIndex < column.size()) {
+                cellIndex++;
+            }
+
+            //IMPORTANT
+            if(cellIndex == column.size() - 1){
+                return;
+            }
+
+            //first entry
+            for (int i = cellIndex; i < numbers.getAtIndex(numbersIndex); i++) {
+                setCell(cellIndex, index, 1);
+                cellIndex++;
+            }
+            //after this
+            //if not the last entry
+            if (cellIndex < column.size()) {
+                System.out.println("CALLED");
+                setCell(cellIndex, index, -1);
+                cellIndex++;
+            }
+        }
+    }
+
+    public void fillRow(int index, Numbers numbers){
+        if(getCellsUnsolvedRow(index) == 0) return;
+        List<Cell> row = getRow(index);
+        int numbersIndex = 0;
+        int cellIndex = 0;
+        //searching for the first empty entry
+
+        //while not at the end of the row
+        while(cellIndex < row.size()) {
+
+            //search for the first index that is zero
+            while (row.get(cellIndex).getStatus() != 0 && cellIndex < row.size()) {
+                cellIndex++;
+            }
+
+            //IMPORTANT
+            if(cellIndex == row.size() - 1){
+                return;
+            }
+
+            //first entry
+            for (int i = cellIndex; i < numbers.getAtIndex(numbersIndex); i++) {
+                setCell(index, cellIndex, 1);
+                cellIndex++;
+            }
+            //after this
+            //if not the last entry
+            if (cellIndex < row.size()) {
+                System.out.println("CALLED");
+                setCell(index, cellIndex, -1);
+                cellIndex++;
+            }
+        }
+    }
+
     public int sizeRows(){
         return cells.size();
     }
@@ -36,7 +103,19 @@ public class Grid {
 
         Grid grid = (Grid) o;
 
-        return cells != null ? cells.equals(grid.cells) : grid.cells == null;
+        if(grid.sizeRows() != this.sizeRows() || grid.sizeColumns() != this.sizeColumns()) return false;
+
+        for(int rowIndex = 0; rowIndex < sizeRows(); rowIndex++){
+            for(int columnIndex = 0; columnIndex< sizeColumns(); columnIndex++){
+                //all cells statuses should be the same
+                if(this.getCell(rowIndex, columnIndex).getStatus() != grid.getCell(rowIndex, columnIndex).getStatus()){
+                    return false;
+                }
+
+            }
+        }
+        return true;
+        //return cells != null ? cells.equals(grid.cells) : grid.cells == null;
     }
 
     @Override

@@ -5,28 +5,44 @@ public class Solver {
     public static void solve(Nonogram nonogramIn){
         nonogram = nonogramIn;
 
-        System.out.println(nonogram.toString());
+        int attemps = 0;
 
-        //getGrid().setCell(1, 1,1);
-        //getGrid().setCell(1, 2,1);
+        while(attemps < 3) {
+            //columns
+            for (int i = 0; i < getGrid().sizeColumns(); i++) {
+                //if the unsolved is equal to sum of numbers + amount of numbers - 1 -> fill them
+                System.out.println(nonogram.toString());
+                if (nonogram.getColumns().get(i).getMagicNumber() >= getGrid().getCellsUnsolvedColumn(i)) {
+                    getGrid().fillColumn(i, nonogram.getColumns().get(i));
+                    System.out.println("filled column at index: " + i);
+                    System.out.println(nonogram.toString());
 
-        //while unsolved
-        //columns
-        for(int i = 0; i < getGrid().sizeColumns(); i++){
-            //if the unsolved is equal to sum of numbers + amount of numbers - 1 -> fill them
-            //if(getGrid().getCellsUnsolvedColumn(i) == ){
-            System.out.println(nonogram.getColumns().get(i).getMagicNumber());
-            //}
-            //System.out.println(getGrid().getCellsUnsolvedColumn(i) + "\n");
+                } else{
+                    System.out.println("magicnumber: " + nonogram.getColumns().get(i).getMagicNumber());
+
+                }
+            }
+
+            System.out.println(" --------- END OF COLUMNS ------------------");
+
+            //rows
+            for (int i = 0; i < getGrid().sizeRows(); i++) {
+                System.out.println(nonogram.toString());
+
+                if (nonogram.getRows().get(i).getMagicNumber() >= getGrid().getCellsUnsolvedRow(i)) {
+                    getGrid().fillRow(i, nonogram.getRows().get(i));
+                    System.out.println("Filled row at index: " + i);
+                    System.out.println(nonogram.toString());
+
+                }else{
+                    System.out.println("magicnumber: " + nonogram.getColumns().get(i).getMagicNumber());
+
+                }
+            }
+
+            attemps++;
+            System.out.println("---------------------------------------------");
         }
-
-
-        //rows
-        for(int i = 0; i < getGrid().sizeRows(); i++){
-          //  System.out.println(getGrid().getCellsUnsolvedRow(i) + "\n");
-        }
-
-        System.out.println(nonogram.toString());
     }
 
     private static Grid getGrid(){
