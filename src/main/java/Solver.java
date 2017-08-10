@@ -1,5 +1,3 @@
-import java.util.List;
-
 public class Solver {
 
     static Nonogram nonogram;
@@ -11,7 +9,7 @@ public class Solver {
 
         while(attemps < 3) {
             //columns
-            for (int i = 0; i < getGrid().sizeColumns(); i++) {
+            for (int i = 0; i < getGrid().getAmountColumns(); i++) {
                 //if the unsolved is equal to sum of numbers + amount of numbers - 1 -> fill them
                 System.out.println(nonogram.toString());
 
@@ -31,7 +29,7 @@ public class Solver {
             System.out.println(" --------- END OF COLUMNS ------------------");
 
             //rows
-            for (int i = 0; i < getGrid().sizeRows(); i++) {
+            for (int i = 0; i < getGrid().getAmountRows(); i++) {
                 System.out.println(nonogram.toString());
 
                 Numbers row = nonogram.getRows().get(i);

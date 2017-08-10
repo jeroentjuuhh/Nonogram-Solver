@@ -12,6 +12,8 @@ public class Nonogram {
     //Grid
     private Grid grid;
 
+    //TODO: Add more javadoc
+
     /**
      * a Nonogram containing all the numbers.
      * Makes a grid and number objects
@@ -69,6 +71,8 @@ public class Nonogram {
 
         return result.toString();
     }
+
+    //TODO: What does the getColumns and the getRows calculate you? DEFINE IT
 
     public List<Numbers> getColumns() {
         return columns;

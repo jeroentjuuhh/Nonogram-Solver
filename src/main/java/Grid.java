@@ -4,9 +4,10 @@ import java.util.List;
 public class Grid {
 
     //list of lists of statuses
-    List<List<Cell>> cells;
-    int amountRows, amountColumns;
+    private List<Cell> cells;
+    private int amountRows, amountColumns;
 
+    //TODO: Add javadoc to all the methods that are implemented correctly!
 
     /**
      *
@@ -16,19 +17,21 @@ public class Grid {
     public Grid(int rows, int columns){
         amountRows = rows;
         amountColumns = columns;
-        cells = new ArrayList<List<Cell>>();
+        cells = new ArrayList<Cell>();
         //horizontal
-        for(int i = 0; i < rows; i++){
-            cells.add(i, new ArrayList<Cell>());
-
-            //vertical
-            for(int j = 0; j < columns; j++) {
-                cells.get(i).add(j, new Cell(j, i));
+        int index = 0;
+        for (int j = 0; j < columns; j++) {
+            for (int i = 0; i < rows; i++) {
+                //int index, int column, int row
+                cells.add(index, new Cell(index, j, i));
+                index++;
             }
         }
     }
+    //TODO: Refactor the fill Row and Fill Column into one method
 
     public void fillColumn(int index, Numbers numbers){
+
         List<Cell> column = getColumn(index);
         int numbersIndex = 0;
         int cellIndex = 0;
@@ -46,14 +49,14 @@ public class Grid {
 
             //first entry
             for (int i = cellIndex; i < numbers.getAtIndex(numbersIndex); i++) {
-                setCell(cellIndex, index, 1);
+                //setCell(cellIndex, index, 1);
                 cellIndex++;
             }
             //after this
             //if not the last entry
             if (cellIndex < column.size()) {
                 System.out.println("CALLED");
-                setCell(cellIndex, index, -1);
+                //setCell(cellIndex, index, -1);
                 cellIndex++;
                 numbersIndex++;
             }
@@ -84,22 +87,18 @@ public class Grid {
 
             //first entry
             for (int i = 0; i < numbers.getAtIndex(numbersIndex); i++) {
-                setCell(index, cellIndex, 1);
+                //setCell(index, cellIndex, 1);
                 cellIndex++;
             }
             //after this
             //if not the last entry
             if (cellIndex < row.size()) {
                 System.out.println("CALLED");
-                setCell(index, cellIndex, -1);
+                //setCell(index, cellIndex, -1);
                 cellIndex++;
                 numbersIndex++;
             }
         }
-    }
-
-    public int sizeRows(){
-        return cells.size();
     }
 
     @Override
@@ -109,34 +108,25 @@ public class Grid {
 
         Grid grid = (Grid) o;
 
-        if(grid.sizeRows() != this.sizeRows() || grid.sizeColumns() != this.sizeColumns()) return false;
+        if (grid.getAmountRows() != this.getAmountRows() || grid.getAmountColumns() != this.getAmountColumns())
+            return false;
 
-        for(int rowIndex = 0; rowIndex < sizeRows(); rowIndex++){
-            for(int columnIndex = 0; columnIndex< sizeColumns(); columnIndex++){
-                //all cells statuses should be the same
-                if(this.getCell(rowIndex, columnIndex).getStatus() != grid.getCell(rowIndex, columnIndex).getStatus()){
-                    return false;
-                }
-
+        for (int index = 0; index < grid.getSize(); index++) {
+            //all cells statuses should be the same
+            if (this.getCell(index).getStatus() != grid.getCell(index).getStatus()) {
+                return false;
             }
+
         }
         return true;
-        //return cells != null ? cells.equals(grid.cells) : grid.cells == null;
     }
 
-    @Override
-    public int hashCode() {
-        return cells != null ? cells.hashCode() : 0;
+
+    public void setCell(int index, int status) {
+        cells.get(index).setStatus(status);
     }
 
-    public int sizeColumns(){
-        return cells.get(0).size();
-    }
-
-    public void setCell(int row, int column, int status){
-        cells.get(row).get(column).setStatus(status);
-    }
-
+    // TODO: change the unsolved algorithm
     public int getCellsUnsolvedColumn(int index){
         int result = 0;
 
@@ -157,39 +147,56 @@ public class Grid {
         return result;
     }
 
-        public Cell getCell(int row, int col){
-        return cells.get(row).get(col);
-    }
-
-    public List<Cell> getRow(int index){
+    public Cell getCell(int index) {
         return cells.get(index);
     }
 
-    public List<Cell> getColumn(int index){
-        List<Cell> result = new ArrayList<Cell>();
+    public List<Cell> getRow(int index) {
+        List<Cell> result = new ArrayList<>();
+        for (Cell c : cells) {
+            if (c.getRowIndex() == index) {
+                result.add(c);
+            }
+        }
+        return result;
+    }
 
-        for(int i = 0; i < cells.size(); i++){
-            result.add(i, cells.get(i).get(index));
+    public List<Cell> getColumn(int index){
+        List<Cell> result = new ArrayList<>();
+
+        for (Cell c : cells) {
+            if (c.getColumnIndex() == index) {
+                result.add(c);
+            }
         }
 
         return result;
     }
 
+    //TODO: What does the getAmountRows and getAmountOfColumns say?
+
+    public int getAmountRows() {
+        return amountRows;
+    }
+
+    public int getAmountColumns() {
+        return amountColumns;
+    }
+
+    public int getSize() {
+        return amountRows * amountColumns;
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-
-        for (List<Cell> cell : cells) {
-
-            for (Cell c : cell) {
-                //append the status of the cell:
-                result.append(c.getStatus()).append(", ");
-            }
-
+        //TODO: change the toString
+        for (Cell c : cells) {
+            result.append(c.getStatus()).append(", ");
             result.append("\n");
-
         }
-        return "Grid: \n" + result;
+
+        return "Grid: \n" + result.toString();
     }
 }
 
