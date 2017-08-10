@@ -5,6 +5,7 @@ public class Grid {
 
     //list of lists of statuses
     List<List<Cell>> cells;
+    int amountRows, amountColumns;
 
 
     /**
@@ -13,6 +14,8 @@ public class Grid {
      * @param columns number of entries vertical
      */
     public Grid(int rows, int columns){
+        amountRows = rows;
+        amountColumns = columns;
         cells = new ArrayList<List<Cell>>();
         //horizontal
         for(int i = 0; i < rows; i++){
@@ -20,13 +23,12 @@ public class Grid {
 
             //vertical
             for(int j = 0; j < columns; j++) {
-                cells.get(i).add(j, new Cell());
+                cells.get(i).add(j, new Cell(j, i));
             }
         }
     }
 
     public void fillColumn(int index, Numbers numbers){
-        if(getCellsUnsolvedColumn(index) == 0) return;
         List<Cell> column = getColumn(index);
         int numbersIndex = 0;
         int cellIndex = 0;
@@ -38,7 +40,7 @@ public class Grid {
             }
 
             //IMPORTANT
-            if(cellIndex == column.size() - 1){
+            if(cellIndex == column.size()){
                 return;
             }
 
@@ -53,32 +55,35 @@ public class Grid {
                 System.out.println("CALLED");
                 setCell(cellIndex, index, -1);
                 cellIndex++;
+                numbersIndex++;
             }
         }
     }
 
     public void fillRow(int index, Numbers numbers){
-        if(getCellsUnsolvedRow(index) == 0) return;
         List<Cell> row = getRow(index);
         int numbersIndex = 0;
         int cellIndex = 0;
         //searching for the first empty entry
 
         //while not at the end of the row
-        while(cellIndex < row.size()) {
+        while(cellIndex < row.size() - 1) {
 
             //search for the first index that is zero
             while (row.get(cellIndex).getStatus() != 0 && cellIndex < row.size()) {
+//                if(cellIndex > 0 && row.get(cellIndex - 1).getStatus() == -1){
+//                    numbersIndex++;
+//                }
                 cellIndex++;
             }
 
             //IMPORTANT
-            if(cellIndex == row.size() - 1){
+            if(cellIndex == row.size()){
                 return;
             }
 
             //first entry
-            for (int i = cellIndex; i < numbers.getAtIndex(numbersIndex); i++) {
+            for (int i = 0; i < numbers.getAtIndex(numbersIndex); i++) {
                 setCell(index, cellIndex, 1);
                 cellIndex++;
             }
@@ -88,6 +93,7 @@ public class Grid {
                 System.out.println("CALLED");
                 setCell(index, cellIndex, -1);
                 cellIndex++;
+                numbersIndex++;
             }
         }
     }

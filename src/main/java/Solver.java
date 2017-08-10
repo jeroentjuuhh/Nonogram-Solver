@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Solver {
 
     static Nonogram nonogram;
@@ -12,7 +14,10 @@ public class Solver {
             for (int i = 0; i < getGrid().sizeColumns(); i++) {
                 //if the unsolved is equal to sum of numbers + amount of numbers - 1 -> fill them
                 System.out.println(nonogram.toString());
-                if (nonogram.getColumns().get(i).getMagicNumber() >= getGrid().getCellsUnsolvedColumn(i)) {
+
+                Numbers column = nonogram.getColumns().get(i);
+
+                if (column.getMagicNumber() >= getGrid().getCellsUnsolvedColumn(i) && getGrid().getCellsUnsolvedColumn(i) != 0) {
                     getGrid().fillColumn(i, nonogram.getColumns().get(i));
                     System.out.println("filled column at index: " + i);
                     System.out.println(nonogram.toString());
@@ -29,7 +34,9 @@ public class Solver {
             for (int i = 0; i < getGrid().sizeRows(); i++) {
                 System.out.println(nonogram.toString());
 
-                if (nonogram.getRows().get(i).getMagicNumber() >= getGrid().getCellsUnsolvedRow(i)) {
+                Numbers row = nonogram.getRows().get(i);
+
+                if (row.getMagicNumber() >= getGrid().getCellsUnsolvedRow(i) && getGrid().getCellsUnsolvedRow(i) != 0) {
                     getGrid().fillRow(i, nonogram.getRows().get(i));
                     System.out.println("Filled row at index: " + i);
                     System.out.println(nonogram.toString());
@@ -47,16 +54,6 @@ public class Solver {
 
     private static Grid getGrid(){
         return nonogram.getGrid();
-    }
-
-    public static void main(String[] args){
-        //Grid grid = new Grid(4, 4);
-
-        int[][] columns = {{1,2},{1,3}, {2,2}, {0}};
-        int[][] rows = {{4,3},{4,3}, {0}, {0}};
-
-        Nonogram nonogram = new Nonogram(columns, rows, 4, 4);
-        Solver.solve(nonogram);
     }
 
 }
