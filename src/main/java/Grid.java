@@ -17,7 +17,7 @@ public class Grid {
     public Grid(int rows, int columns){
         amountRows = rows;
         amountColumns = columns;
-        cells = new ArrayList<Cell>();
+        cells = new ArrayList<>();
         //horizontal
         int index = 0;
         for (int j = 0; j < columns; j++) {
@@ -29,6 +29,51 @@ public class Grid {
         }
     }
     //TODO: Refactor the fill Row and Fill Column into one method
+    //TODO: Still some failing tests so not working properly!
+
+    /**
+     * Fills a row/column (=collection) on a specific index
+     *
+     * @param index   the index
+     * @param numbers the numbers that you need to fill on that specific index
+     */
+    public void fillCollection(int index, Numbers numbers) {
+        List<Cell> collection = getCollection(index);
+        int numbersIndex = 0;
+        int cellIndex = 0;
+
+        while (cellIndex < collection.size() - 1) {
+
+            //getting the first unsolved cell
+            while (collection.get(cellIndex).getStatus() != 0 && cellIndex < collection.size() - 1) {
+                cellIndex++;
+            }
+
+            if (cellIndex == collection.size()) return;
+
+            boolean filled = false;
+
+            int firstIndex = cellIndex;
+
+            for (int i = cellIndex; i < firstIndex + numbers.getAtIndex(numbersIndex); i++) {
+                //getting the index of the cell
+                Cell c = collection.get(cellIndex);
+                //setting the cell
+                setCell(c.getIndex(), 1);
+                cellIndex++;
+                filled = true;
+            }
+
+            if (filled) numbersIndex++;
+
+            //setting the cell after that to -1
+            if (cellIndex < collection.size() - 1) {
+                Cell c = collection.get(cellIndex);
+                setCell(c.getIndex(), -1);
+                cellIndex++;
+            }
+        }
+    }
 
     public void fillColumn(int index, Numbers numbers){
 
@@ -171,6 +216,14 @@ public class Grid {
         }
 
         return result;
+    }
+
+    public List<Cell> getCollection(int index) {
+        if (index < amountRows) {
+            return getColumn(index);
+        } else {
+            return getRow(index - amountRows);
+        }
     }
 
     //TODO: What does the getAmountRows and getAmountOfColumns say?

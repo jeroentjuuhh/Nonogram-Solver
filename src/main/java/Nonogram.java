@@ -72,24 +72,27 @@ public class Nonogram {
         return result.toString();
     }
 
-    //TODO: What does the getColumns and the getRows calculate you? DEFINE IT
-
+    /**
+     * Get the columns of numbers
+     *
+     * @return a list of Numbers
+     */
     public List<Numbers> getColumns() {
         return columns;
     }
 
-    public void setColumns(List<Numbers> horizontal) {
-        this.columns = horizontal;
-    }
-
+    /**
+     *
+     * @return a list of Numbers
+     */
     public List<Numbers> getRows() {
         return rows;
     }
 
-    public void setRows(List<Numbers> rows) {
-        this.rows = rows;
-    }
-
+    /**
+     *
+     * @return returns the one-dimentional grid
+     */
     public Grid getGrid() {
         return grid;
     }

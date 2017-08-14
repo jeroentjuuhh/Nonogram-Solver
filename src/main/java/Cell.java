@@ -17,6 +17,16 @@ public class Cell {
         this.status = 0;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Cell cell = (Cell) o;
+
+        return status == cell.status;
+    }
+
     public int getIndex() {
         return index;
     }
